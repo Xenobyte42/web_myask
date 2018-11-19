@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block hat %}
+{% include 'noauth_base.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <h3 class="font-weight-bold">Registration</h3>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Login:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="Login">
+            <div class="invalid-feedback">
+                That login has already been registered
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="example@gmail.com">
+            <div class="invalid-feedback">
+                That mail has already been registered
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Nickname:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Nickname">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Password:</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control" id="inputLogin" placeholder="Password">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Repeat password:</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control" id="inputLogin" placeholder="Repeat password">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Choose avatar:</label>
+        <div class="col-sm-4">
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4">
+            <button class="btn btn-dark my-2 my-sm-0" type="submit">Register!</button>
+        </div>
+    </div>
+{% endblock %}
+

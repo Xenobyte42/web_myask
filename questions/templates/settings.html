@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block hat %}
+{% include 'auth_base.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <h3 class="font-weight-bold">
+                <span>Settings: </span>
+                <span>Dr. Pepper</span>
+            </h3>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Login:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="Dr. Pepper">
+            <div class="invalid-feedback">
+                That login has already been registered
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="drpepper@gmail.com">
+            <div class="invalid-feedback">
+                That mail has already been registered
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Nickname:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Pepper">
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label">Upload Avatar:</label>
+        <div class="col-6" id="Image">
+            <div class="row"><img class="user-avatar" src="../../static/img/avatar.jpg"></div>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4">
+            <button class="btn btn-dark my-2 my-sm-0" type="submit">Save!</button>
+        </div>
+    </div>
+{% endblock %}

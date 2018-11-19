@@ -1,0 +1,76 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Ask Andreyaschenko</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+
+    <body class="bg-light">
+        
+        <header>
+            <nav class="navbar bg-dark p-2 text-center">
+                <div class="container-fluid">
+                    <div>
+                        <h3 class="d-inline text-white"><a href="{% url 'main_page' %}" class="text-white">Ask Andreyaschenko</a></h3>
+                    </div>
+                    <form class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="{% url 'ask_page' %}">Ask!</button>
+                    </form>
+                    {% block hat %}
+                    {% endblock %}
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row mt-4">
+
+                <div class="col-md-8 blog-main">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            
+                <div class="col-md-4 blog-sidebar">
+                    <div>
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-dark">Popular Tags</span>
+                        </h4>
+                    </div>
+                    <div class="row ml-auto">
+                    {% for tag in popular_tags %}
+                        <a href="{% url 'tag_page' tag_name=tag %}" class="mr-3 mb-3 text-muted">{{ tag }}</a>
+                    {% endfor %}
+                    </div>
+                    <div>
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-dark">Best Members</span>
+                        </h4>
+                    </div>
+                    <div>
+                    {% for member in best_members %}
+                        <li><a class="mb-3 text-muted" href="#">{{ member }}</a></li>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer mt-4">
+            <div class="container">
+                <p><a class="text-dark" href="#">Back to top</a></p>
+                <span class="text-muted">All rights reserved. © 2018-2019</span>
+            </div>
+        </footer>
+
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    </body>
+
+</html> 
+ 

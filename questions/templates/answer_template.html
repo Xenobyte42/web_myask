@@ -1,0 +1,36 @@
+{% load static %}
+
+ <div class="col-md-10">
+            
+    <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+        <div class="card-body">
+            <div class = "row">
+                <div class="col-auto">
+                    <div class="row ml-0">
+                        <img class="card-img-right flex-auto d-none d-lg-block card-pic" src="{% static 'img/card_image.jpg' %}" alt="Card image cap">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-outline-dark ml-1 mr-1">+</button>
+                        {{ answer.votes.sum_rating }}
+                        <button type="submit" class="btn btn-outline-dark ml-1 mr-1">-</button>
+                    </div>
+                </div>
+                <div class = "col-md-9">
+                    <p class="card-text mb-auto">{{ answer.description }}</p>
+
+                    <div class="row mb-0 mt-2">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Correct!
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

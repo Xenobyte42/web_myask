@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block hat %}
+    {% if user %}
+        {% with user as user%}
+            {% include 'auth_base.html' %}
+        {% endwith %}
+    {% else %}
+        {% with user as user%}
+            {% include 'noauth_base.html' %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <h3 class="font-weight-bold">
+                <span>Tag: </span>
+                <span>{{ tag_name }}</span>
+            </h3>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="row">
+    
+        {% for question in questions %}
+            {% with question as question %}
+                {% include 'question_template.html' %}
+            {% endwith %}
+        {% endfor %}
+
+    </div>
+    
+    <div class="row justify-content-center page-item">
+        {% load bootstrap4 %}
+        {% bootstrap_pagination questions %}
+    </div>
+{% endblock %}
+
+ 

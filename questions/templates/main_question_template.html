@@ -1,0 +1,38 @@
+{% load static %}
+
+<div class="card flex-md-row mb-4 shadow-sm h-md-250">
+    <div class="card-body">
+        <div class = "row">
+            <div class="col-auto">
+                <div class="row">
+                    <img class="card-img-right flex-auto d-none d-lg-block quest-pic" src="{% static 'img/card_image.jpg' %}" alt="Card image cap">
+                </div>
+                <div class="ml-2">
+                    <button type="submit" class="btn btn-outline-dark ml-1 mr-1">+</button>
+                    {{ question.votes.sum_rating }}
+                    <button type="submit" class="btn btn-outline-dark ml-1 mr-1">-</button>
+                </div>
+            </div>
+            <div class = "col-md-9">
+                <h3 class="card-title text-dark">{{ question.title }}</h3>
+                <p class="card-text mb-auto">{{ question.description }}</p>
+
+                <div>
+                    <div class="col-md-2 d-flex align-content-stretch flex-wrap">
+                        <p class="text-muted">answer({{ question.answer_count }})</p>
+                    </div>
+                    <div class="col-md-10 d-flex align-content-stretch flex-wrap">
+                        {% if question.tags.all %}
+                        <div class="d-inline-flex mr-3">
+                            Tags:
+                        </div>
+                        {% for tag in question.tags.all %}
+                        <a class="text-muted mr-1" href="{% url 'tag_page' tag_name=tag.name %}">{{ tag.name }}</a>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

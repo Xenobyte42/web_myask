@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block hat %}
+    {% if user %}
+        {% with user as user%}
+            {% include 'auth_base.html' %}
+        {% endwith %}
+    {% else %}
+        {% with user as user%}
+            {% include 'noauth_base.html' %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+                
+{% block content%}
+    <div>
+        
+        {% with main_question as question %}
+            {% include 'main_question_template.html' %}
+        {% endwith %}
+
+    </div>
+    
+    <hr>
+
+    <div class="row">
+        
+        {% for answer in answers %}
+            {% with answer as answer %}
+                {% include 'answer_template.html' %}
+            {% endwith %}
+        {% endfor %}
+        
+    </div>
+    
+    <hr>
+    
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <textarea style="resize:none;" maxlength=1500 class="form-control is-invalid" rows="4" placeholder="Enter your comment here"></textarea>
+            <div class="invalid-feedback">
+                enter your comment here
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-dark my-2 my-sm-0" type="submit">Ask!</button>
+{% endblock %}
