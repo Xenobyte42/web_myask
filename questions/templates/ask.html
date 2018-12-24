@@ -22,40 +22,31 @@
 
     <hr>
     
-    <form>
+    <form enctype="multipart/form-data" method="POST" class="post-form">
+        {% csrf_token %}
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Title:</label>
+            {{ form.title }}
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Question:</label>
+            {{ form.description }}
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tags:</label>
+            {{ form.tag_list }}
+        </div>
+        
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Incorrect data</strong>
+            </div>
+        {% endif %}
     
-        <div class="form-group row">
-            <label for="inputTitle" class="col-sm-2 col-form-label">Title:</label>
-            <div class="col-sm-10">
-                <input type="text" maxlength=200 class="form-control is-invalid" id="inputPassword" placeholder="Enter a title">
-                <div class="invalid-feedback">
-                Please enter a title
-                </div>
-            </div>
-        </div>
-        
-        <div class="form-group row">
-            <label for="comment" class="col-sm-2 col-form-label">Question:</label>
-            <div class="col-sm-10">
-                <textarea style="resize:none;" maxlength=1500 class="form-control is-invalid" rows="8" id="comment" placeholder="Enter a question"></textarea>
-                <div class="invalid-feedback">
-                    Please enter a question
-                </div>
-            </div>
-        </div>
-        
-        <div class="form-group row">
-            <label for="inputTags" class="col-sm-2 col-form-label">Tags:</label>
-            <div class="col-sm-10">
-                <input type="text" maxlength=200 class="form-control is-invalid" id="inputPassword" placeholder="Add tags">
-                <div class="invalid-feedback">
-                    Please add tags
-                </div>
-            </div>
-        </div>
-        
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ask!</button>
     </form>
-
-    <button class="btn btn-dark my-2 my-sm-0" type="submit">Ask!</button>
 {% endblock %}
 

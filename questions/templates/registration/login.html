@@ -2,16 +2,13 @@
 {% load static %}
 
 {% block hat %}
-{% include 'auth_base.html' %}
+{% include 'noauth_base.html' %}
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="col-8">
-            <h3 class="font-weight-bold">
-                <span>Settings: </span>
-                <span>Dr. Pepper</span>
-            </h3>
+        <div class="col-4">
+            <h3 class="font-weight-bold">Log In</h3>
         </div>
     </div>
     
@@ -28,32 +25,26 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email:</label>
+            <label class="col-sm-2 col-form-label">Password:</label>
             <div class="col-sm-4">
-                {{ form.email }}
+                {{ form.password }}
             </div>
         </div>
         
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nickname:</label>
-            <div class="col-sm-4">
-                {{ form.nickname }}
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Upload Avatar:</label>
-            <div class="col-6" id="Image">
-                {{ form.avatar_path }}
-            </div>
-        </div>
-
         {% if form.errors %}
             <div class="alert alert-danger">
-                <strong>Incorrect settings</strong>
+                <strong>Incorrect login or password</strong>
             </div>
         {% endif %}
-        
+            
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Save!</button>
     </form>
+
+    <div class="form-group row">
+        <label for="inputTitle" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-4">
+            <a href="{% url 'signup_page' %}" class="text-muted">Create new account</a>
+        </div>
+    </div>
 {% endblock %}
+  

@@ -14,59 +14,53 @@
     
     <hr>
     
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Login:</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="Login">
-            <div class="invalid-feedback">
-                That login has already been registered
+    <form enctype="multipart/form-data" method="POST" class="post-form">
+        {% csrf_token %}
+    
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Login:</label>
+            <div class="col-sm-4">
+                {{ form.username }}
             </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Email:</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control is-invalid" id="inputLogin" placeholder="example@gmail.com">
-            <div class="invalid-feedback">
-                That mail has already been registered
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-4">
+                {{ form.email }}
             </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Nickname:</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" id="inputLogin" placeholder="Nickname">
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nickname:</label>
+            <div class="col-sm-4">
+                {{ form.nickname }}
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Password:</label>
-        <div class="col-sm-4">
-            <input type="password" class="form-control" id="inputLogin" placeholder="Password">
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Password:</label>
+            <div class="col-sm-4">
+                {{ form.password }}
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Repeat password:</label>
-        <div class="col-sm-4">
-            <input type="password" class="form-control" id="inputLogin" placeholder="Repeat password">
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Repeat password:</label>
+            <div class="col-sm-4">
+               {{ form.confirm_password }}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label">Choose avatar:</label>
-        <div class="col-sm-4">
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Choose avatar:</label>
+            <div class="col-sm-4">
+                {{ form.avatar_path }}
+            </div>
         </div>
-    </div>
+    
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Register!</button>
+    </form>
 
-    <div class="form-group row">
-        <label for="inputTitle" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4">
-            <button class="btn btn-dark my-2 my-sm-0" type="submit">Register!</button>
-        </div>
-    </div>
 {% endblock %}
 

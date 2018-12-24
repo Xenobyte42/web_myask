@@ -1,24 +1,40 @@
 from django import forms
 
-from quesions.models import Question
-
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharFiled(widget=forms.PasswordInput)
+from .models import Profile, Question
 
 
-    # clean _ <field name>
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if "!" in username:
-            raise forms.ValidationError('username')
-        return username
+class SettingsForm(forms.ModelForm):
 
-class QuestionForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['text'].widget.attrs.update({'class': 'long'})
+    class Meta:
+        model = Profile
+        fields = ('username', 'email', 'nickname', 'avatar_path',)
+
+
+class LoginForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('username', 'password',)
+
+
+class AskForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        exclude = 'author'
+        fields = ('title', 'description', 'tag_list',)
+
+
+class SignupForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = Profile
+        fields = ('username', 'email', 'nickname', 'password', 'avatar_path',)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            raise forms.ValidationError("Passwords does not match")

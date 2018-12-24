@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage
+from django.views import View
 from .models import *
 from .forms import *
 
+from mysite import settings
 
 popular_tags = ['Pigs', 'Evangelion', 'Cats',
                 'ManBearPig', '42', 'Pony']
@@ -17,58 +22,94 @@ def paginate(objects, request, amount):
     page = request.GET.get('page')
     return paginator.get_page(page)
 
-def hot_page(request):
-    question_list = Question.objects.top()
-    
-    visible_questions = paginate(question_list, request, 4)
-    return render(request, 'hot.html', {'questions': visible_questions,
-                                        'popular_tags': popular_tags,
-                                        'best_members': best_members,
-                                        'user': user})
 
-def main_page(request):
-    question_list = Question.objects.get_list()
-    visible_questions = paginate(question_list, request, 4)
-    return render(request, 'index.html', {'questions': visible_questions,
-                                        'popular_tags': popular_tags,
-                                        'best_members': best_members,
-                                        'user': user})
+class MainPage(View):
+    template_name = 'index.html'
 
-def tag_page(request, tag_name):
-    question_list = Question.objects.get_tag(tag_name)
+    def get(self, request):
+        question_list = Question.objects.get_list()
+        visible_questions = paginate(question_list, request, settings.QUEST_PER_PAGE)
+        context = {'questions': visible_questions, 'popular_tags': popular_tags,
+                   'best_members': best_members, 'user': user}
+        return render(request, self.template_name, context)
 
-    visible_questions = paginate(question_list, request, 4)
-    return render(request, 'tag.html', {'tag_name': tag_name,
-                                        'questions': visible_questions,
-                                        'popular_tags': popular_tags,
-                                        'best_members': best_members,
-                                        'user': user})
 
-def question_page(request, question_id):
-    main_question = Question.objects.get_question(question_id)
-    answers = Answer.objects.answer(question_id)
-        
-    return render(request, 'question.html', {'main_question': main_question,
-                                             'answers': answers,
-                                             'popular_tags': popular_tags,
-                                             'best_members': best_members,
-                                             'user': user})
+class HotPage(View):
+    template_name = 'hot.html'
 
-def login_page(request):
-    return render(request, 'login.html', {'popular_tags': popular_tags,
-                                          'best_members': best_members})
+    def get(self, request):
+        question_list = Question.objects.top()
+        visible_questions = paginate(question_list, request, settings.QUEST_PER_PAGE)
+        context = {'questions': visible_questions, 'popular_tags': popular_tags,
+                   'best_members': best_members, 'user': user}
+        return render(request, self.template_name, context)
 
-def signup_page(request):
-    return render(request, 'signup.html', {'popular_tags': popular_tags,
-                                           'best_members': best_members})
 
-def ask_page(request):
-    return render(request, 'ask.html', {'popular_tags': popular_tags,
-                                        'best_members': best_members,
-                                        'form': QuestionForm()})
+class TagPage(View):
+    template_name = 'tag.html'
 
-def settings_page(request):
-    return render(request, 'settings.html', {'popular_tags': popular_tags,
-                                             'best_members': best_members})
+    def get(self, request, tag_name):
+        question_list = Question.objects.get_tag(tag_name)
+        visible_questions = paginate(question_list, request, settings.QUEST_PER_PAGE)
+        context = {'questions': visible_questions, 'popular_tags': popular_tags,
+                   'best_members': best_members, 'user': user, 'tag_name': tag_name}
+        return render(request, self.template_name, context)
 
+
+class QuestionPage(View):
+    template_name = 'question.html'
+
+    def get(self, request, question_id):
+        main_question = Question.objects.get_question(question_id)
+        answers = Answer.objects.answer(question_id)
+        context = {'main_question': main_question, 'answers': answers,
+                   'popular_tags': popular_tags, 'best_members': best_members, 'user': user}
+        return render(request, self.template_name, context)
+
+
+class LoginPage(View):
+    template_name = 'registration/login.html'
+    form_class = LoginForm
+
+    def get(self, request):
+        form = self.form_class()
+        context = {'popular_tags': popular_tags,
+                   'best_members': best_members,
+                   'form': form}
+        return render(request, self.template_name, context)
+
+class SignupPage(View):
+    template_name = 'signup.html'
+    form_class = SignupForm
+
+    def get(self, request):
+        form = self.form_class()
+        context = {'popular_tags': popular_tags,
+                   'best_members': best_members,
+                   'form': form}
+        return render(request, self.template_name, context)
+
+
+class AskPage(View):
+    template_name = 'ask.html'
+    form_class = AskForm
+
+    def get(self, request):
+        form = self.form_class()
+        context = {'popular_tags': popular_tags,
+                   'best_members': best_members,
+                   'form': form}
+        return render(request, self.template_name, context)
+
+
+class SettingsPage(View):
+    template_name = 'settings.html'
+    form_class = SettingsForm
+
+    def get(self, request):
+        form = self.form_class()
+        context = {'popular_tags': popular_tags,
+                   'best_members': best_members,
+                   'form': form}
+        return render(request, self.template_name, context)
 
