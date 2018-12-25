@@ -25,6 +25,11 @@
             <div class="col-sm-4">
                 {{ form.username }}
             </div>
+            {% if form.username.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.username.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
 
         <div class="form-group row">
@@ -32,6 +37,11 @@
             <div class="col-sm-4">
                 {{ form.email }}
             </div>
+            {% if form.email.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.email.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
         
         <div class="form-group row">
@@ -39,6 +49,11 @@
             <div class="col-sm-4">
                 {{ form.nickname }}
             </div>
+            {% if form.nickname.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.nickname.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
 
         <div class="form-group row">
@@ -46,14 +61,13 @@
             <div class="col-6" id="Image">
                 {{ form.avatar_path }}
             </div>
+            {% if form.avatar_path.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.avatar_path.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
 
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Incorrect settings</strong>
-            </div>
-        {% endif %}
-        
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Save!</button>
     </form>
 {% endblock %}

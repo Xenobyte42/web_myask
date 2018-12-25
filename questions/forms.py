@@ -32,10 +32,11 @@ class SignupForm(forms.ModelForm):
         model = Profile
         fields = ('username', 'email', 'nickname', 'password', 'avatar_path',)
     
-    def clean(self):
+    def clean_confirm_password(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords does not match")
+

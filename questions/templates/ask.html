@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block hat %}
-    {% if user %}
+    {% if user.is_authenticated and user.is_active %}
         {% with user as user%}
             {% include 'auth_base.html' %}
         {% endwith %}
@@ -28,23 +28,32 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Title:</label>
             {{ form.title }}
+            {% if form.title.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.title.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
         
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Question:</label>
             {{ form.description }}
+            {% if form.description.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.description.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
         
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Tags:</label>
             {{ form.tag_list }}
+            {% if form.tag_list.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.tag_list.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
-        
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Incorrect data</strong>
-            </div>
-        {% endif %}
     
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Ask!</button>
     </form>

@@ -22,6 +22,11 @@
             <div class="col-sm-4">
                 {{ form.username }}
             </div>
+            {% if form.username.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.username.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
 
         <div class="form-group row">
@@ -29,13 +34,12 @@
             <div class="col-sm-4">
                 {{ form.password }}
             </div>
+            {% if form.password.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ form.password.errors }}</strong>
+                </div>
+            {% endif %}
         </div>
-        
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Incorrect login or password</strong>
-            </div>
-        {% endif %}
             
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Login!</button>
     </form>
