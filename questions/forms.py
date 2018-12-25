@@ -18,10 +18,11 @@ class LoginForm(forms.ModelForm):
 
 
 class AskForm(forms.ModelForm):
+    tag_list = forms.CharField(max_length=500, initial="", required=True)
 
     class Meta:
         model = Question
-        fields = ('title', 'description', 'tag_list',)
+        fields = ('title', 'description',)
 
 
 class SignupForm(forms.ModelForm):

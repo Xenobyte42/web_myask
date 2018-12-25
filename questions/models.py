@@ -80,9 +80,8 @@ class Question(models.Model):
     title = models.CharField(max_length=20)
     description = models.TextField(max_length=600)
     author = models.ForeignKey(to="Profile", on_delete=models.SET_NULL, null=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField('Tag', blank=True)
     votes = GenericRelation(to="LikeDislike", related_query_name='questions')
-    tag_list = models.CharField(max_length=500, null=True, default="")
 
 
 class Answer(models.Model):

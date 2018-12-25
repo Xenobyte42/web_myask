@@ -104,6 +104,24 @@ class AskPage(View):
                    'form': form}
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required)
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid:
+            question = form.save(commit=False)
+            question.author = request.user
+            question.save()
+            for tag in form['tag_list'].data.split():
+                new_tag = Tag.objects.get_or_create(name=tag)
+                print(new_tag)
+                question.tags.add(new_tag[0])
+            question.save()
+            return redirect('main_page')
+        context = {'popular_tags': popular_tags,
+                   'best_members': best_members,
+                   'form': form}
+        return render(request, self.template_name, context)
+
 
 class SettingsPage(View):
     template_name = 'settings.html'
