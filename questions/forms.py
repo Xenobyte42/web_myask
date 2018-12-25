@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Profile, Question
+from .models import Profile, Question, Answer
 
 
 class SettingsForm(forms.ModelForm):
@@ -40,3 +40,10 @@ class SignupForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Passwords does not match")
 
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Answer
+        fields = ('description',)
+        

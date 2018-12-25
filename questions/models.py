@@ -87,7 +87,7 @@ class Question(models.Model):
 class Answer(models.Model):
 
     objects = ModelManagerAnswer()
-    description = models.CharField(max_length=200)
+    description = models.TextField(max_length=200)
     question = models.ForeignKey(to="Question", on_delete=models.SET_NULL, null=True, related_name='answers')
     author = models.ForeignKey(to="Profile", on_delete=models.SET_NULL, null=True, related_name='answers')
     votes = GenericRelation(to="LikeDislike", related_query_name='answers')

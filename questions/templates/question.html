@@ -36,14 +36,16 @@
     
     <hr>
     
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <textarea style="resize:none;" maxlength=1500 class="form-control is-invalid" rows="4" placeholder="Enter your comment here"></textarea>
-            <div class="invalid-feedback">
-                enter your comment here
+    <form enctype="multipart/form-data" method="POST" class="post-form">
+        {% csrf_token %}
+        {% if user.is_authenticated and user.is_active %}
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    {{ form.description }}
+                </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
 
-    <button class="btn btn-dark my-2 my-sm-0" type="submit">Ask!</button>
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Answer!</button>
+    </form>
 {% endblock %}

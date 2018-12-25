@@ -57,14 +57,26 @@ class TagPage(View):
 
 class QuestionPage(View):
     template_name = 'question.html'
+    form_class = CommentForm
 
     def get(self, request, question_id):
         main_question = Question.objects.get_question(question_id)
         answers = Answer.objects.answer(question_id)
+        form = self.form_class()
         context = {'main_question': main_question, 'answers': answers,
                    'popular_tags': popular_tags, 'best_members': best_members,
-                   'user': request.user}
+                   'user': request.user, 'form': form}
         return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, question_id):
+        form = self.form_class(request.POST)
+        if form.is_valid:
+            answer = form.save(commit=False)
+            answer.author = request.user
+            answer.question = Question.objects.get_question(question_id)
+            answer.save()
+        return redirect('quest_page', question_id)
 
 
 class SignupPage(View):
@@ -116,7 +128,7 @@ class AskPage(View):
                 print(new_tag)
                 question.tags.add(new_tag[0])
             question.save()
-            return redirect('main_page')
+            return redirect('quest_page', question_id=question.id)
         context = {'popular_tags': popular_tags,
                    'best_members': best_members,
                    'form': form}
