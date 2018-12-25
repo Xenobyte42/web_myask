@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block hat %}
-    {% if user %}
+    {% if user.is_authenticated and user.is_active %}
         {% with user as user%}
             {% include 'auth_base.html' %}
         {% endwith %}
