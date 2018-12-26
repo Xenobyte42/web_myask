@@ -5,7 +5,11 @@
         <div class = "row">
             <div class="col-auto">
                 <div class="row">
+                    {% if question.author.avatar_path %}
                     <img class="card-img-right flex-auto d-none d-lg-block quest-pic" src="{{ question.author.avatar_path.url }}" alt="Card image cap">
+                    {% else %}
+                    <img class="card-img-right flex-auto d-none d-lg-block quest-pic" src="{% static 'img/card_image.jpg' %}" alt="Card image cap">
+                    {% endif %}
                 </div>
                 <div class="ml-2">
                     <button type="submit" class="btn btn-outline-dark ml-1 mr-1">+</button>
